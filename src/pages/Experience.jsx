@@ -11,7 +11,7 @@ const Experience = () => {
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
 
   return (
-    <section id="work" className="c-space my-20 mb-[-60px] sm:mb-20">
+    <section id="work" className="c-space my-20 mb-[-60px] sm:mb-0">
       <div className="w-full text-white-600">
         <h3 className="head-text">Experience</h3>
 

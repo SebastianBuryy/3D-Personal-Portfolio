@@ -55,12 +55,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="c-space my-20 mt-8 sm:mt-20">
+    <section id="contact" className="c-space my-20">
       <div className="relative flex flex-col items-center justify-center min-h-screen">
         <img
           src="/assets/terminal.png"
           alt="terminal background"
-          className="absolute inset-0 min-h-screen hidden md:block"
+          className="absolute inset-0 w-full h-full object-center object-contain hidden md:block"
         />
         <div className="contact-container">
           <h3 className="head-text">Get in touch</h3>
@@ -72,7 +72,7 @@ const Contact = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="mt-12 flex flex-col space-y-7 w-full"
+            className="mt-12 flex flex-col space-y-7"
           >
             <label className="space-y-3">
               <span className="field-label">Name</span>
