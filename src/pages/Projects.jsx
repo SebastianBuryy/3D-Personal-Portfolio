@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useMemo } from "react";
 import { myProjects } from "../constants";
 import { Canvas } from "@react-three/fiber";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -6,6 +6,7 @@ import { IoLogoGithub } from "react-icons/io";
 import { Center, OrbitControls } from "@react-three/drei";
 import CanvasLoader from "../components/CanvasLoader";
 import Computer from "../components/Computer";
+import { useMediaQuery } from "react-responsive";
 
 const projectCount = myProjects.length;
 
@@ -22,6 +23,8 @@ const Projects = () => {
       }
     });
   };
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
 
   return (
     <section id="projects" className="my-20 c-space">
@@ -109,7 +112,7 @@ const Projects = () => {
         </div>
 
         <div className="border border-black-300 bg-black-200 rounded-lg h-96 md:h-full">
-          <Canvas>
+          <Canvas dpr={isMobile ? 1 : 1.5}>
             <ambientLight intensity={Math.PI} />
             <directionalLight position={[10, 10, 5]} />
             <Center>

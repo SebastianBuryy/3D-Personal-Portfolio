@@ -1,6 +1,6 @@
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense } from "react";
+import React, { Suspense, useMemo } from "react";
 import Programmer from "../components/Programmer";
 import CanvasLoader from "../components/CanvasLoader";
 import {
@@ -15,6 +15,16 @@ import Button from "../components/Button";
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 640 });
+  const programmer = useMemo(
+    () => (
+      <Programmer
+        scale={isMobile ? 3.5 : 5}
+        position={[0, 0, 0]}
+        rotation={[0, -Math.PI / 2, 0]}
+      />
+    ),
+    []
+  );
 
   return (
     <section id="home" className="w-full flex flex-col relative min-h-screen">
@@ -28,21 +38,26 @@ const Hero = () => {
       </div>
 
       <div className="w-full h-full inset-0 absolute">
-        <Canvas className="w-full h-full">
+        <Canvas
+          frameloop="demand"
+          className="w-full h-full"
+          dpr={isMobile ? 1 : 1.5}
+        >
           <Suspense fallback={<CanvasLoader />}>
             <PerspectiveCamera makeDefault position={[0, 0, 15]} />
-            <Programmer
+            {/* <Programmer
               scale={isMobile ? 3.5 : 5}
               position={[0, 0, 0]}
               rotation={[0, -Math.PI / 2, 0]}
-            />
+            /> */}
+            {programmer}
             <OrbitControls
               autoRotate
               enablePan={false}
               enableZoom={false}
               autoRotateSpeed={1}
             />
-            <ambientLight intensity={1} />
+            {/* <ambientLight intensity={1} />
             <directionalLight
               castShadow
               position={[5, 5, 5]}
@@ -56,7 +71,7 @@ const Hero = () => {
               angle={0.3}
               intensity={25.0}
               castShadow
-            />
+            /> */}
 
             <EffectComposer>
               <Bloom

@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import { workExperiences } from "../constants";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
