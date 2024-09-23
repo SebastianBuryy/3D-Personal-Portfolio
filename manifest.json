@@ -1,0 +1,15 @@
+{
+  "name": "Sebastian Bury Portfolio",
+  "short_name": "Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Portfolio of Sebastian Bury, showcasing projects and skills in computer science and software engineering.",
+  "icons": [
+    {
+      "src": "/sb-circle-logo.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

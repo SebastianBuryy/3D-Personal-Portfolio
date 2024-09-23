@@ -4,9 +4,11 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import MyModel from "../components/MyModel";
 import CanvasLoader from "../components/CanvasLoader";
+import { useMediaQuery } from "react-responsive";
 
 const Experience = () => {
   const [animationName, setAnimationName] = useState("idle");
+  const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
 
   return (
     <section id="work" className="c-space my-20 mb-[-60px] sm:mb-20">
@@ -14,21 +16,23 @@ const Experience = () => {
         <h3 className="head-text">Experience</h3>
 
         <div className="work-container">
-          <div className="work-canvas hidden sm:block">
-            <Canvas>
-              <ambientLight intensity={7} />
-              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-              <directionalLight position={[10, 10, 10]} intensity={1} />
-              <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-              <Suspense fallback={<CanvasLoader />}>
-                <MyModel
-                  position-y={-1.5}
-                  scale={2}
-                  animationName={animationName}
-                />
-              </Suspense>
-            </Canvas>
-          </div>
+          {isDesktop && (
+            <div className="work-canvas">
+              <Canvas>
+                <ambientLight intensity={7} />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                <directionalLight position={[10, 10, 10]} intensity={1} />
+                <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
+                <Suspense fallback={<CanvasLoader />}>
+                  <MyModel
+                    position-y={-1.5}
+                    scale={2}
+                    animationName={animationName}
+                  />
+                </Suspense>
+              </Canvas>
+            </div>
+          )}
 
           <div className="work-content">
             <div className="sm:py-10 py-5 sm:px-5 px-2.5">
