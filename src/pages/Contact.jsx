@@ -60,11 +60,13 @@ const Contact = () => {
         <img
           src="/assets/terminal.png"
           alt="terminal background"
-          className="absolute inset-0 w-full h-full object-center object-contain hidden md:block"
+          className="absolute inset-0 w-full h-full object-contain hidden md:block"
         />
-        <div className="contact-container">
-          <h3 className="head-text">Get in touch</h3>
-          <p className="text-lg text-white-600 mt-3">
+        <div className="contact-container mt-10">
+          <h3 className="sm:text-3xl text-2xl font-semibold text-gray_gradient">
+            Get in touch
+          </h3>
+          <p className="text-base text-white-600 mt-3">
             Whether you're looking to build a new website or bring a unique
             project to life, I'm always here to help.
           </p>
@@ -72,7 +74,7 @@ const Contact = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="mt-12 flex flex-col space-y-7"
+            className="mt-8 flex flex-col space-y-7"
           >
             <label className="space-y-3">
               <span className="field-label">Name</span>
