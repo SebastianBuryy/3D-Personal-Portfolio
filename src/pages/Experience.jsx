@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useState } from "react";
+import React, { Suspense, useMemo, useState, useEffect, useRef } from "react";
 import { workExperiences } from "../constants";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
@@ -10,6 +10,37 @@ const Experience = () => {
   const [animationName, setAnimationName] = useState("idle");
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
 
+  const canvasRef = useRef();
+  const [render, setRender] = React.useState(true);
+
+  useEffect(() => {
+    // Create an Intersection Observer to detect when the canvas is in view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          console.log("Canvas is visible, resuming rendering.");
+          setRender(true); // Resume rendering when visible
+        } else {
+          console.log("Canvas is not visible, pausing rendering.");
+          setRender(false); // Pause rendering when not visible
+        }
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the canvas is visible
+      }
+    );
+
+    if (canvasRef.current) {
+      observer.observe(canvasRef.current); // Start observing the canvas container
+    }
+
+    return () => {
+      if (canvasRef.current) {
+        observer.unobserve(canvasRef.current); // Clean up the observer on component unmount
+      }
+    };
+  }, []);
+
   return (
     <section id="work" className="c-space my-20 mb-[-60px] sm:mb-0">
       <div className="w-full text-white-600">
@@ -17,20 +48,29 @@ const Experience = () => {
 
         <div className="work-container">
           {isDesktop && (
-            <div className="work-canvas">
-              <Canvas>
-                <ambientLight intensity={7} />
-                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-                <directionalLight position={[10, 10, 10]} intensity={1} />
-                <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-                <Suspense fallback={<CanvasLoader />}>
-                  <MyModel
-                    position-y={-1.5}
-                    scale={2}
-                    animationName={animationName}
+            <div ref={canvasRef} className="work-canvas">
+              {render && (
+                <Canvas>
+                  <ambientLight intensity={7} />
+                  <spotLight
+                    position={[10, 10, 10]}
+                    angle={0.15}
+                    penumbra={1}
                   />
-                </Suspense>
-              </Canvas>
+                  <directionalLight position={[10, 10, 10]} intensity={1} />
+                  <OrbitControls
+                    enableZoom={false}
+                    maxPolarAngle={Math.PI / 2}
+                  />
+                  <Suspense fallback={<CanvasLoader />}>
+                    <MyModel
+                      position-y={-1.5}
+                      scale={2}
+                      animationName={animationName}
+                    />
+                  </Suspense>
+                </Canvas>
+              )}
             </div>
           )}
 
